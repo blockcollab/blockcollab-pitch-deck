@@ -1,19 +1,19 @@
 @media print {
 
-    body {
-        position: inherit;
-    }
+  body {
+    position: inherit;
+  }
 
-    ion-app.ion-page {
-        overflow: visible;
-        contain: none;
-    }
+  ion-app.ion-page {
+    overflow: visible;
+    contain: none;
+  }
 
-    ion-content {
-        contain: none;
-    }
+  ion-content {
+    contain: none;
+  }
 
-    #navigation {
-        display: none;
-    }
+  #navigation {
+    display: none;
+  }
 }

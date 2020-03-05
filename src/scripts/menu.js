@@ -1,120 +1,120 @@
 class MenuList extends HTMLElement {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    async connectedCallback() {
+  async connectedCallback() {
 
-        const menuListActions = await buildMenuListActions();
+    const menuListActions = await buildMenuListActions();
 
-        this.innerHTML = '<ion-content><ion-list no-margin>' + menuListActions + '</ion-list></ion-content>';
-    }
+    this.innerHTML = '<ion-content><ion-list no-margin>' + menuListActions + '</ion-list></ion-content>';
+  }
 }
 
 buildMenuListActions = () => {
-    return new Promise(async (resolve) => {
-        let result = '';
+  return new Promise(async (resolve) => {
+    let result = '';
 
-        result += '<ion-item ion-item button detail="false" onclick="displaySlideNotes()" color="primary" style="--border-style: none;"><ion-icon name="clipboard-outline" aria-label="Display slide notes" slot="end"></ion-icon><ion-label>Display slide notes</ion-label></ion-item>';
-        result += '<ion-item ion-item button detail="false" onclick="displayRemoteControl()" color="primary" style="--border-style: none;"><ion-icon name="phone-portrait-outline" aria-label="Remote control" slot="end"></ion-icon><ion-label>Remote control</ion-label></ion-item>';
-        result += '<ion-item ion-item button detail="false" onclick="openShare()" color="primary" style="--border-style: none;"><ion-icon name="share-outline" aria-label="Share this presentation" slot="end"></ion-icon><ion-label>Share</ion-label></ion-item>';
-        result += '<ion-item ion-item button detail="false" onclick="openLink(\'https://deckdeckgo.com\')" style="--border-style: none; --ion-item-background: white;"><ion-icon src="/assets/icons/deckdeckgo.svg" aria-label="DeckDeckGo" slot="end"></ion-icon><ion-label>Created with DeckDeckGo</ion-label></ion-item>';
+    result += '<ion-item ion-item button detail="false" onclick="displaySlideNotes()" color="primary" style="--border-style: none;"><ion-icon name="clipboard-outline" aria-label="Display slide notes" slot="end"></ion-icon><ion-label>Display slide notes</ion-label></ion-item>';
+    result += '<ion-item ion-item button detail="false" onclick="displayRemoteControl()" color="primary" style="--border-style: none;"><ion-icon name="phone-portrait-outline" aria-label="Remote control" slot="end"></ion-icon><ion-label>Remote control</ion-label></ion-item>';
+    result += '<ion-item ion-item button detail="false" onclick="openShare()" color="primary" style="--border-style: none;"><ion-icon name="share-outline" aria-label="Share this presentation" slot="end"></ion-icon><ion-label>Share</ion-label></ion-item>';
+    result += '<ion-item ion-item button detail="false" onclick="openLink(\'https://deckdeckgo.com\')" style="--border-style: none; --ion-item-background: white;"><ion-icon src="/assets/icons/deckdeckgo.svg" aria-label="DeckDeckGo" slot="end"></ion-icon><ion-label>Created with DeckDeckGo</ion-label></ion-item>';
 
-        resolve(result);
-    });
+    resolve(result);
+  });
 };
 
 customElements.define('menu-list', MenuList);
 
 openMenu = async (ev) => {
-    ev.preventDefault();
+  ev.preventDefault();
 
-    const popover = document.createElement('ion-popover');
-    popover.component = 'menu-list';
-    popover.translucent = true;
-    popover.event = ev;
+  const popover = document.createElement('ion-popover');
+  popover.component = 'menu-list';
+  popover.translucent = true;
+  popover.event = ev;
 
-    document.body.appendChild(popover);
+  document.body.appendChild(popover);
 
-    await popover.present();
+  await popover.present();
 };
 
 openLink = async (link) => {
-    window.open(link, '_blank');
-    await document.querySelector('ion-popover').dismiss();
+  window.open(link, '_blank');
+  await document.querySelector('ion-popover').dismiss();
 };
 
 
 openShare = async () => {
-    if (navigator && navigator.share) {
-        await shareMobile();
-    } else {
-        await shareDesktop();
-    }
+  if (navigator && navigator.share) {
+    await shareMobile();
+  } else {
+    await shareDesktop();
+  }
 
-    await document.querySelector('ion-popover').dismiss();
+  await document.querySelector('ion-popover').dismiss();
 };
 
 function shareMobile() {
-    return new Promise(async (resolve) => {
-        const shareUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+  return new Promise(async (resolve) => {
+    const shareUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
 
-        await navigator.share({
-            title: document.title,
-            url: shareUrl,
-        });
-
-        resolve();
+    await navigator.share({
+      title: document.title,
+      url: shareUrl,
     });
+
+    resolve();
+  });
 }
 
 function shareDesktop() {
-    return new Promise(async (resolve) => {
-        const webSocialShare = document.querySelector('web-social-share');
+  return new Promise(async (resolve) => {
+    const webSocialShare = document.querySelector('web-social-share');
 
-        if (!webSocialShare || !window) {
-            return;
+    if (!webSocialShare || !window) {
+      return;
+    }
+
+    const shareUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+
+    const share = {
+      displayNames: true,
+      config: [{
+        twitter: {
+          socialShareUrl: shareUrl,
+          socialSharePopupWidth: 300,
+          socialSharePopupHeight: 400
         }
+      },{
+        reddit: {
+          socialShareUrl: shareUrl,
+          socialSharePopupWidth: 300,
+          socialSharePopupHeight: 500
+        }
+      },{
+        linkedin: {
+          socialShareUrl: shareUrl
+        }
+      },{
+        email: {
+          socialShareBody: shareUrl
+        }
+      }, {
+        whatsapp: {
+          socialShareUrl: shareUrl
+        }
+      },{
+        hackernews: {
+          socialShareUrl: shareUrl
+        }
+      }]
+    };
 
-        const shareUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+    webSocialShare.share = share;
 
-        const share = {
-            displayNames: true,
-            config: [{
-                twitter: {
-                    socialShareUrl: shareUrl,
-                    socialSharePopupWidth: 300,
-                    socialSharePopupHeight: 400
-                }
-            },{
-                reddit: {
-                    socialShareUrl: shareUrl,
-                    socialSharePopupWidth: 300,
-                    socialSharePopupHeight: 500
-                }
-            },{
-                linkedin: {
-                    socialShareUrl: shareUrl
-                }
-            },{
-                email: {
-                    socialShareBody: shareUrl
-                }
-            }, {
-                whatsapp: {
-                    socialShareUrl: shareUrl
-                }
-            },{
-                hackernews: {
-                    socialShareUrl: shareUrl
-                }
-            }]
-        };
+    webSocialShare.show = true;
 
-        webSocialShare.share = share;
-
-        webSocialShare.show = true;
-
-        resolve();
-    });
+    resolve();
+  });
 }

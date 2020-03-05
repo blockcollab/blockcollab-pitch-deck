@@ -70,45 +70,45 @@ import { defineCustomElements as deckDeckGoDragResizeRotateElements } from '@dec
 import { defineCustomElements as webSocialShareElements } from 'web-social-share/dist/loader';
 
 deckDeckGoElements(window).then(async () => {
-    await deckDeckGoChartsElements(window);
-    await deckDeckGoQRCodeElements(window);
-    await deckDeckGoHighlightCodeElements(window);
-    await deckDeckGoLazyImgElements(window);
-    await deckDeckGoSocialElements(window);
-    await deckDeckGoYoutubeElements(window);
-    await deckDeckGoDragResizeRotateElements(window);
+  await deckDeckGoChartsElements(window);
+  await deckDeckGoQRCodeElements(window);
+  await deckDeckGoHighlightCodeElements(window);
+  await deckDeckGoLazyImgElements(window);
+  await deckDeckGoSocialElements(window);
+  await deckDeckGoYoutubeElements(window);
+  await deckDeckGoDragResizeRotateElements(window);
 
-    const promises = [];
+  const promises = [];
 
-    promises.push(deckDeckGoSlideTitleElements(window));
-    promises.push(deckDeckGoSlideContentElements(window));
-    promises.push(deckDeckGoSlideAuthorElements(window));
-    promises.push(deckDeckGoSlideChartElements(window));
-    promises.push(deckDeckGoSlideYoutubeElements(window));
-    promises.push(deckDeckGoSlideSplitElements(window));
-    promises.push(deckDeckGoSlideCodeElements(window));
-    promises.push(deckDeckGoSlideCountdownElements(window));
-    promises.push(deckDeckGoSlideGifElements(window));
-    promises.push(deckDeckGoSlideQRCodeElements(window));
-    promises.push(deckDeckGoSlideBigImgElements(window));
-    promises.push(deckDeckGoSlideVideoElements(window));
-    promises.push(deckDeckGoSlidePollElements(window));
-    promises.push(deckDeckGoSlideAspectRatioElements(window));
+  promises.push(deckDeckGoSlideTitleElements(window));
+  promises.push(deckDeckGoSlideContentElements(window));
+  promises.push(deckDeckGoSlideAuthorElements(window));
+  promises.push(deckDeckGoSlideChartElements(window));
+  promises.push(deckDeckGoSlideYoutubeElements(window));
+  promises.push(deckDeckGoSlideSplitElements(window));
+  promises.push(deckDeckGoSlideCodeElements(window));
+  promises.push(deckDeckGoSlideCountdownElements(window));
+  promises.push(deckDeckGoSlideGifElements(window));
+  promises.push(deckDeckGoSlideQRCodeElements(window));
+  promises.push(deckDeckGoSlideBigImgElements(window));
+  promises.push(deckDeckGoSlideVideoElements(window));
+  promises.push(deckDeckGoSlidePollElements(window));
+  promises.push(deckDeckGoSlideAspectRatioElements(window));
 
-    await Promise.all(promises);
+  await Promise.all(promises);
 
-    await postLoading();
-    await initActions();
-    await initFullscreen();
+  await postLoading();
+  await initActions();
+  await initFullscreen();
 
-    await postLoadingJumpTo();
-    await initDeckHistoryWatch();
+  await postLoadingJumpTo();
+  await initDeckHistoryWatch();
 
-    await webSocialShareElements(window);
+  await webSocialShareElements(window);
 
-    deckDeckGoRemoteElements(window).then(async () => {
-        await initRemote();
-    });
+  deckDeckGoRemoteElements(window).then(async () => {
+    await initRemote();
+  });
 });
 
 initButtons();

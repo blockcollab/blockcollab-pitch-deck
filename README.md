@@ -9,3 +9,5 @@ cd blockcollab-pitch-deck
 npm install
 npm run start
 ```
+
+[DeckDeckGo starter kit]: https://github.com/deckgo/deckdeckgo-starter
